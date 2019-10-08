@@ -165,7 +165,7 @@ In this example, the ``DataFetcher`` retrieves a user from another GraphQL resou
             @Override
             public Object get(DataFetchingEnvironment environment) {
                 Map response = fetchUserFromRemoteGraphQLResource(environment.getArgument("userId"));
-                List<GraphQLError> errors = response.get("errors")).stream()
+                List<GraphQLError> errors = ((Map) response.get("errors")).entrySet().stream()
                     .map(MyMapGraphQLError::new)
                     .collect(Collectors.toList();
                 return new DataFetcherResult(response.get("data"), errors);
